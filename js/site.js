@@ -57,4 +57,40 @@
       btn.replaceWith(box);
     }, { once: true });
   });
+
+  // Inquiry form: sends through Web3Forms, shows the result in place
+  var form = document.getElementById('inquiry');
+  if (form) {
+    var status = form.querySelector('.form-status');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var bad = [].filter.call(form.querySelectorAll('[required]'), function (el) {
+        el.classList.toggle('is-invalid', !el.checkValidity());
+        return !el.checkValidity();
+      });
+      if (bad.length) {
+        status.className = 'form-status error';
+        status.textContent = 'Please fill in the highlighted fields.';
+        bad[0].focus();
+        return;
+      }
+      var btn = form.querySelector('button[type=submit]');
+      btn.disabled = true;
+      status.className = 'form-status';
+      status.textContent = 'Sending...';
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      }).then(function (r) { return r.json(); }).then(function (d) {
+        if (d.success) {
+          form.reset();
+          status.textContent = 'Thank you! Your inquiry is on its way. I will be in touch within 24 to 48 hours.';
+        } else { throw new Error(d.message || 'failed'); }
+      }).catch(function () {
+        status.className = 'form-status error';
+        status.textContent = 'Sorry, something went wrong. Please email alicetranphotography@gmail.com instead.';
+      }).finally(function () { btn.disabled = false; });
+    });
+  }
 })();

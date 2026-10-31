@@ -17,8 +17,25 @@
 .contact-form { max-width: 760px; }
 .contact-form h2 { margin-bottom: .4rem; }
 .contact-form > p.lede { text-align: center; margin-bottom: 1.5rem; }
-.contact-form iframe { display: block; width: 100%; height: 1400px; border: 0; }
-@media (min-width: 960px) { .contact-form iframe { height: 1200px; } }
+.inquiry { background: var(--white); border: 1px solid #eadfc8; border-radius: 6px; padding: 1.6rem 1.4rem 1.8rem; display: grid; gap: 1.1rem; }
+@media (min-width: 700px) { .inquiry { padding: 2.2rem 2.2rem 2.4rem; } }
+.inquiry .hp { position: absolute; left: -9999px; }
+.field { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.field-row { display: grid; gap: 1.1rem; }
+@media (min-width: 700px) { .field-row { grid-template-columns: 1fr 1fr; } }
+.field label { font: 400 1rem/1.4 var(--display); color: var(--cocoa); }
+.field label span { color: var(--mustard-dk); }
+.field label small { display: block; font: 400 .85rem/1.4 var(--serif); color: var(--muted); }
+.field input, .field select, .field textarea {
+  width: 100%; padding: .7rem .85rem; border: 1px solid #d9cdb4; border-radius: 4px;
+  background: #fffdf8; color: var(--ink); font: 400 1rem/1.4 var(--serif);
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--mustard); outline-offset: 1px; border-color: var(--mustard); }
+.field input.is-invalid, .field select.is-invalid, .field textarea.is-invalid { border-color: #b23b3b; }
+.form-note { margin: 0; font-size: .9rem; color: var(--muted); }
+.inquiry .btn { justify-self: start; font-weight: 700; padding: .9em 2.2em; }
+.form-status { margin: 0; font-weight: 700; color: var(--cocoa); min-height: 1.5em; }
+.form-status.error { color: #b23b3b; }
 </style>
 [[header]]
 
@@ -65,9 +82,75 @@
 </section>
 
 <section class="section contact-form" id="contact-form">
-  <h2 class="sans-title">Tell me about your day</h2>
+  <h2 class="sans-title">Let's connect &amp; create some magic!</h2>
   <p class="lede">Dates, locations, ideas, questions: the more you share, the better I can help.</p>
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdAuHfk0kl7DzZuXduRZJl450rubKy3tqARX4tzfbsI2Sv6wA/viewform?embedded=true" title="Contact Information form" loading="lazy">Loading...</iframe>
+  <form class="inquiry" id="inquiry" novalidate>
+    <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+    <input type="hidden" name="subject" value="New inquiry from alicetranphotography.com">
+    <input type="hidden" name="from_name" value="Alice Tran Photography website">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <div class="field">
+      <label for="f-name">Your first &amp; last name, and your partner's (if booking a wedding or engagement) <span>*</span></label>
+      <input id="f-name" name="name" type="text" required autocomplete="name">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="f-email">Email <span>*</span></label>
+        <input id="f-email" name="email" type="email" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="f-phone">Phone number <span>*</span><small>I'll send you a text to say hi!</small></label>
+        <input id="f-phone" name="phone" type="tel" required autocomplete="tel">
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-type">What type of shoot are you interested in? <span>*</span></label>
+      <select id="f-type" name="shoot_type" required>
+        <option value="" selected disabled>Choose one</option>
+        <option>Traditional Wedding</option>
+        <option>Elopement / Intimate Wedding</option>
+        <option>Engagement / Proposal</option>
+        <option>Portrait session (Family, Maternity, Graduate, Headshot, Pets, etc.)</option>
+        <option>Boudoir Photography</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="f-date">What date and time are you hoping to book? <span>*</span></label>
+        <input id="f-date" name="date_and_time" type="text" required placeholder="e.g. Saturday, June 13, 2027, 2 pm">
+      </div>
+      <div class="field">
+        <label for="f-place">Where would you like your session to take place, or where is your venue? <span>*</span></label>
+        <input id="f-place" name="location" type="text" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-about">Tell me about yourself and what you're hoping to get from this experience. <span>*</span></label>
+      <textarea id="f-about" name="about" rows="6" required></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="f-budget">What's your budget? <span>*</span><small>All packages are listed on the <a href="/pricing">pricing page</a>.</small></label>
+        <input id="f-budget" name="budget" type="text" required>
+      </div>
+      <div class="field">
+        <label for="f-found">How did you find me?</label>
+        <select id="f-found" name="how_found">
+          <option value="" selected>Choose one (optional)</option>
+          <option>Google Search</option>
+          <option>Instagram</option>
+          <option>Facebook</option>
+          <option>Word of mouth</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <p class="form-note">I reply within 24 to 48 hours. Your details are only used to get back to you.</p>
+    <button class="btn" type="submit">Send my inquiry</button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </form>
   <p class="center">If you have any other questions that are not covered in the <a href="/faq">FAQ</a>, send me an email <a href="mailto:alicetranphotography@gmail.com">alicetranphotography@gmail.com</a>. Thank you!</p>
 </section>
 
