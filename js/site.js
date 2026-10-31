@@ -58,54 +58,31 @@
     }, { once: true });
   });
 
-  // Inquiry form: three short steps, then sends through Web3Forms
+  // Inquiry form: one page, checked before it is sent through Web3Forms
   var form = document.getElementById('inquiry');
   if (form) {
-    var steps = form.querySelectorAll('.step');
-    var bars = form.querySelectorAll('.progress span');
     var status = form.querySelector('.form-status');
-    var current = 0;
-
-    var valid = function (step) {
-      var ok = true, first = null;
-      step.querySelectorAll('[required]').forEach(function (el) {
-        var good = el.type === 'radio' ? !!form.querySelector('[name="' + el.name + '"]:checked') : el.checkValidity();
-        var box = el.type === 'radio' ? el.closest('.choices') : el;
-        box.classList.toggle('is-invalid', !good);
-        if (!good) { ok = false; first = first || el; }
-      });
-      if (!ok) {
-        status.className = 'form-status error';
-        status.textContent = 'Please fill in the highlighted fields.';
-        if (first.type === 'radio') first.closest('.choices').scrollIntoView({ block: 'center' }); else first.focus();
-      }
-      return ok;
-    };
-
-    var show = function (n) {
-      current = n;
-      steps.forEach(function (s, i) { s.classList.toggle('is-active', i === n); });
-      bars.forEach(function (b, i) { b.className = i < n ? 'done' : i === n ? 'now' : ''; });
-      form.querySelector('.step-count').textContent = '0' + (n + 1) + ' of 0' + steps.length;
-      form.querySelector('.step-title').textContent = steps[n].dataset.title;
-      form.querySelector('.step-sub').textContent = steps[n].dataset.sub;
-      status.textContent = '';
-      form.querySelector('.inquiry-head').scrollIntoView({ block: 'start', behavior: 'smooth' });
-    };
-
-    form.querySelectorAll('[data-next]').forEach(function (b) {
-      b.addEventListener('click', function () { if (valid(steps[current])) show(current + 1); });
-    });
-    form.querySelectorAll('[data-back]').forEach(function (b) {
-      b.addEventListener('click', function () { show(current - 1); });
-    });
-    form.querySelectorAll('.choices input').forEach(function (r) {
-      r.addEventListener('change', function () { r.closest('.choices').classList.remove('is-invalid'); });
-    });
+    var phoneOk = function (v) { var d = v.replace(/\D/g, ''); return d.length >= 10 && d.length <= 15; };
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!valid(steps[current])) return;
+      var first = null;
+      form.querySelectorAll('[required]').forEach(function (el) {
+        var good = el.type === 'radio' ? !!form.querySelector('[name="' + el.name + '"]:checked')
+                 : el.id === 'f-phone' ? el.value.trim() !== '' && phoneOk(el.value)
+                 : el.checkValidity();
+        var box = el.type === 'radio' ? el.closest('.choices') : el;
+        box.classList.toggle('is-invalid', !good);
+        if (!good && !first) first = el;
+      });
+      if (first) {
+        status.className = 'form-status error';
+        status.textContent = first.id === 'f-phone' && first.value.trim() !== ''
+          ? 'Please enter a valid phone number with area code, like (703) 555-0100.'
+          : 'Please fill in the highlighted fields.';
+        if (first.type === 'radio') first.closest('.choices').scrollIntoView({ block: 'center' }); else first.focus();
+        return;
+      }
       var btn = form.querySelector('button[type=submit]');
       btn.disabled = true;
       status.className = 'form-status';
@@ -126,5 +103,10 @@
         btn.disabled = false;
       });
     });
+    form.querySelectorAll('.choices input').forEach(function (r) {
+      r.addEventListener('change', function () { r.closest('.choices').classList.remove('is-invalid'); });
+    });
+    var phone = document.getElementById('f-phone');
+    phone.addEventListener('input', function () { phone.classList.toggle('is-invalid', phone.value.trim() !== '' && !phoneOk(phone.value)); });
   }
 })();

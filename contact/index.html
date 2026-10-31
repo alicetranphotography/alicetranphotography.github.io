@@ -48,9 +48,6 @@
 .inquiry-head { text-align: center; margin-bottom: 2rem; }
 .inquiry-head h2 { font: 500 clamp(1.9rem, 4vw, 2.6rem)/1.15 var(--display); color: var(--cocoa); margin: .3rem 0 .4rem; }
 .inquiry-head p { margin: 0; color: var(--muted); }
-.progress { display: flex; align-items: center; justify-content: center; gap: .6rem; margin-bottom: 2.2rem; }
-.progress span { width: 34px; height: 2px; background: rgba(121,88,60,.18); border-radius: 2px; transition: background .3s; }
-.progress span.done, .progress span.now { background: var(--gold); }
 .step { display: none; gap: 1.4rem; }
 .step.is-active { display: grid; }
 .field { display: flex; flex-direction: column; gap: .4rem; min-width: 0; }
@@ -154,17 +151,15 @@
     <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
 
     <div class="inquiry-head">
-      <p class="eyebrow">Your inquiry <span class="step-count">01 of 03</span></p>
-      <h2 class="step-title">First, let's get to know you.</h2>
-      <p class="step-sub">A few little details to get us started.</p>
+      <p class="eyebrow">Your inquiry</p>
+      <h2>Let's connect &amp; create some magic!</h2>
+      <p>A few details to get us started. I reply within 24 to 48 hours.</p>
     </div>
-    <div class="progress" aria-hidden="true"><span class="now"></span><span></span><span></span></div>
 
-    <div class="step is-active" data-step="1" data-title="First, let's get to know you." data-sub="A few little details to get us started.">
+    <div class="step is-active">
       <div class="field">
-        <label for="f-name">Your names <i>*</i></label>
+        <label for="f-name">Your names <i>*</i> <span class="inline-hint">Yours, and your partner's if you're booking together.</span></label>
         <input id="f-name" name="name" type="text" required autocomplete="name">
-          <small class="hint">Yours, and your partner's if you're booking together.</small>
       </div>
       <div class="field-row">
         <div class="field">
@@ -173,12 +168,12 @@
         </div>
         <div class="field">
           <label for="f-phone">Phone number <i>*</i> <span class="inline-hint">I'll send you a text to say hi.</span></label>
-          <input id="f-phone" name="phone" type="tel" required autocomplete="tel">
+          <input id="f-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(703) 555-0100">
         </div>
       </div>
       <div class="field">
         <label>What type of shoot are you interested in? <i>*</i></label>
-        <div class="choices" id="f-celebrating">
+        <div class="choices" id="f-shoot">
           <label><input type="radio" name="shoot_type" value="Traditional Wedding" required><span>Traditional wedding</span></label>
           <label><input type="radio" name="shoot_type" value="Elopement / Intimate Wedding"><span>Elopement or intimate wedding</span></label>
           <label><input type="radio" name="shoot_type" value="Engagement / Proposal"><span>Engagement or proposal</span></label>
@@ -187,13 +182,6 @@
           <label><input type="radio" name="shoot_type" value="Other"><span>Something else</span></label>
         </div>
       </div>
-      <div class="step-actions">
-        <button class="btn" type="button" data-next>Continue</button>
-        <p class="form-note">Your information stays private and is only used to respond to your inquiry.</p>
-      </div>
-    </div>
-
-    <div class="step" data-step="2" data-title="Tell me about your day." data-sub="Whatever you know so far is perfect. Details can change.">
       <div class="field-row">
         <div class="field">
           <label for="f-date">What date and time are you hoping to book? <i>*</i></label>
@@ -202,22 +190,6 @@
         <div class="field">
           <label for="f-place">Where would you like your session to take place, or where is your venue? <i>*</i></label>
           <input id="f-place" name="location" type="text" required placeholder="City, venue, or a place you love">
-        </div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label for="f-guests">Estimated number of guests</label>
-          <input id="f-guests" name="guests" type="text" inputmode="numeric" placeholder="Optional">
-        </div>
-        <div class="field">
-          <label for="f-coverage">Coverage you're interested in</label>
-          <select id="f-coverage" name="coverage">
-            <option value="" selected>Choose one (optional)</option>
-            <option>Photography</option>
-            <option>Photography and film</option>
-            <option>Film only</option>
-            <option>Not sure yet</option>
-          </select>
         </div>
       </div>
       <div class="field-row">
@@ -238,17 +210,10 @@
           </select>
         </div>
       </div>
-      <div class="step-actions">
-        <button class="btn" type="button" data-next>Continue</button>
-        <button class="btn-text" type="button" data-back>Back</button>
-      </div>
-    </div>
-
-    <div class="step" data-step="3" data-title="Tell me a little about your story." data-sub="This is my favorite part.">
       <div class="field">
-        <label for="f-about">Your story <i>*</i></label>
+        <label for="f-about">Tell me a little about your story <i>*</i></label>
         <textarea id="f-about" name="about" rows="7" required placeholder="Write as much or as little as you'd like..."></textarea>
-          <small class="hint">What are you most looking forward to? What matters most to you when you think about having these memories documented? I'd love to hear anything you'd like to share.</small>
+        <small class="hint">What are you most looking forward to? What matters most to you when you think about having these memories documented? I'd love to hear anything you'd like to share.</small>
       </div>
       <div class="field">
         <label for="f-more">Is there anything else you'd like me to know?</label>
@@ -256,7 +221,7 @@
       </div>
       <div class="step-actions">
         <button class="btn" type="submit">Send my inquiry</button>
-        <button class="btn-text" type="button" data-back>Back</button>
+        <p class="form-note">Your information stays private and is only used to respond to your inquiry.</p>
       </div>
       <p class="form-status" role="status" aria-live="polite"></p>
     </div>
