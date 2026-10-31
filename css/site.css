@@ -301,6 +301,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 .section-head p { max-width: 600px; margin: 0 auto; color: var(--muted); }
 
 /* Homepage: hero buttons, service cards, welcome */
+.welcome-split { max-width: var(--wrap); margin: 0 auto; padding: 4rem 16px 3.5rem; display: grid; gap: 2.5rem; align-items: center; }
+@media (min-width: 960px) { .welcome-split { grid-template-columns: 1.15fr 1fr; gap: 4rem; padding: 5.5rem 16px 4.5rem; } }
+.welcome-split-text h2 { font: 400 clamp(2.4rem, 5.2vw, 4rem)/1.08 var(--display); color: var(--ink); margin: 0 0 1.2rem; text-wrap: balance; }
+.welcome-split-text h2 em { font-style: italic; color: var(--gold); }
+.welcome-split-text > p { font-size: 1.1rem; max-width: 34em; margin-bottom: 1.6rem; }
+.welcome-split .hero-btns { justify-content: flex-start; }
+.welcome-cards { display: grid; gap: 1.2rem; grid-template-columns: repeat(2, 1fr); }
+.welcome-cards a {
+  display: block; background: var(--paper); border-radius: 14px; padding: 1.6rem 1.4rem 1.5rem;
+  text-decoration: none; color: var(--ink); transition: transform .2s, box-shadow .2s, background .2s;
+}
+.welcome-cards a:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(121,88,60,.14); background: #efe5d6; }
+.welcome-cards h3 { font: 500 1.55rem/1.15 var(--display); color: var(--cocoa); margin-bottom: .45rem; }
+.welcome-cards p { margin: 0; font-size: .92rem; color: var(--muted); line-height: 1.5; }
+@media (max-width: 480px) { .welcome-cards { grid-template-columns: 1fr; } }
 .hero-actions { padding: 1.6rem 16px 1.2rem; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
 .hero-btns { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; }
 .hero-btns .btn { font-weight: 700; padding: .85em 2em; }
