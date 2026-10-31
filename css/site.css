@@ -234,6 +234,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .slide-btn:hover { background: var(--white); }
 .slide-btn.prev { left: 28px; }
 .slide-btn.next { right: 28px; }
+/* two slideshows side by side (portfolio page) */
+.slideshow-pair { max-width: var(--wrap); margin: 2.5rem auto 0; padding: 0 16px; display: grid; gap: 20px; }
+.slideshow-pair .slideshow { margin: 0; padding: 0; }
+.slideshow-pair .slide-btn.prev { left: 12px; }
+.slideshow-pair .slide-btn.next { right: 12px; }
+@media (min-width: 960px) { .slideshow-pair { grid-template-columns: 1fr 1fr; } }
 
 /* Photo grids: masonry keeps every photo's real shape */
 .masonry { columns: 2 160px; column-gap: 12px; }

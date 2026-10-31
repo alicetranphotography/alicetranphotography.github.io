@@ -21,9 +21,8 @@
     if (a.getAttribute('href') === path) a.setAttribute('aria-current', 'page');
   });
 
-  // Slideshow
-  var show = document.querySelector('.slideshow');
-  if (show) {
+  // Slideshows (a page may have more than one)
+  document.querySelectorAll('.slideshow').forEach(function (show) {
     var slides = show.querySelectorAll('.slide');
     var i = 0, timer;
     var go = function (n) {
@@ -43,7 +42,7 @@
     show.querySelector('.next').addEventListener('click', function () { go(i + 1); start(); });
     slides[1] && (slides[1].querySelector('img').loading = 'eager');
     start();
-  }
+  });
 
   // YouTube: load the player only when someone presses play
   document.querySelectorAll('.yt').forEach(function (btn) {
