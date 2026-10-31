@@ -58,22 +58,54 @@
     }, { once: true });
   });
 
-  // Inquiry form: sends through Web3Forms, shows the result in place
+  // Inquiry form: three short steps, then sends through Web3Forms
   var form = document.getElementById('inquiry');
   if (form) {
+    var steps = form.querySelectorAll('.step');
+    var bars = form.querySelectorAll('.progress span');
     var status = form.querySelector('.form-status');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var bad = [].filter.call(form.querySelectorAll('[required]'), function (el) {
-        el.classList.toggle('is-invalid', !el.checkValidity());
-        return !el.checkValidity();
+    var current = 0;
+
+    var valid = function (step) {
+      var ok = true, first = null;
+      step.querySelectorAll('[required]').forEach(function (el) {
+        var good = el.type === 'radio' ? !!form.querySelector('[name="' + el.name + '"]:checked') : el.checkValidity();
+        var box = el.type === 'radio' ? el.closest('.choices') : el;
+        box.classList.toggle('is-invalid', !good);
+        if (!good) { ok = false; first = first || el; }
       });
-      if (bad.length) {
+      if (!ok) {
         status.className = 'form-status error';
         status.textContent = 'Please fill in the highlighted fields.';
-        bad[0].focus();
-        return;
+        if (first.type === 'radio') first.closest('.choices').scrollIntoView({ block: 'center' }); else first.focus();
       }
+      return ok;
+    };
+
+    var show = function (n) {
+      current = n;
+      steps.forEach(function (s, i) { s.classList.toggle('is-active', i === n); });
+      bars.forEach(function (b, i) { b.className = i < n ? 'done' : i === n ? 'now' : ''; });
+      form.querySelector('.step-count').textContent = '0' + (n + 1) + ' of 0' + steps.length;
+      form.querySelector('.step-title').textContent = steps[n].dataset.title;
+      form.querySelector('.step-sub').textContent = steps[n].dataset.sub;
+      status.textContent = '';
+      form.querySelector('.inquiry-head').scrollIntoView({ block: 'start', behavior: 'smooth' });
+    };
+
+    form.querySelectorAll('[data-next]').forEach(function (b) {
+      b.addEventListener('click', function () { if (valid(steps[current])) show(current + 1); });
+    });
+    form.querySelectorAll('[data-back]').forEach(function (b) {
+      b.addEventListener('click', function () { show(current - 1); });
+    });
+    form.querySelectorAll('.choices input').forEach(function (r) {
+      r.addEventListener('change', function () { r.closest('.choices').classList.remove('is-invalid'); });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!valid(steps[current])) return;
       var btn = form.querySelector('button[type=submit]');
       btn.disabled = true;
       status.className = 'form-status';
@@ -83,14 +115,16 @@
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form)))
       }).then(function (r) { return r.json(); }).then(function (d) {
-        if (d.success) {
-          form.reset();
-          status.textContent = 'Thank you! Your inquiry is on its way. I will be in touch within 24 to 48 hours.';
-        } else { throw new Error(d.message || 'failed'); }
+        if (!d.success) throw new Error(d.message || 'failed');
+        form.style.display = 'none';
+        var done = document.getElementById('received');
+        done.classList.add('is-active');
+        done.scrollIntoView({ block: 'center', behavior: 'smooth' });
       }).catch(function () {
         status.className = 'form-status error';
         status.textContent = 'Sorry, something went wrong. Please email alicetranphotography@gmail.com instead.';
-      }).finally(function () { btn.disabled = false; });
+        btn.disabled = false;
+      });
     });
   }
 })();
