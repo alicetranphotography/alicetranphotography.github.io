@@ -32,7 +32,7 @@
 .field-row { display: grid; gap: 1.4rem; }
 @media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
 .field label { font: 500 .78rem/1.3 var(--serif); letter-spacing: .14em; text-transform: uppercase; color: var(--cocoa); }
-.field label small { display: block; text-transform: none; letter-spacing: 0; font-weight: 400; font-size: .85rem; color: var(--muted); margin-top: .15rem; }
+.field .hint { display: block; font-size: .85rem; color: var(--muted); margin-top: -.1rem; }
 .field label i { font-style: normal; color: var(--gold); }
 .field input, .field select, .field textarea {
   width: 100%; padding: .8rem .95rem; border: 1px solid rgba(121,88,60,.28); border-radius: 10px;
@@ -112,8 +112,9 @@
 
     <div class="step is-active" data-step="1" data-title="First, let's get to know you." data-sub="A few little details to get us started.">
       <div class="field">
-        <label for="f-name">Your names <i>*</i><small>Yours, and your partner's if you're booking together.</small></label>
+        <label for="f-name">Your names <i>*</i></label>
         <input id="f-name" name="name" type="text" required autocomplete="name">
+          <small class="hint">Yours, and your partner's if you're booking together.</small>
       </div>
       <div class="field-row">
         <div class="field">
@@ -121,8 +122,9 @@
           <input id="f-email" name="email" type="email" required autocomplete="email">
         </div>
         <div class="field">
-          <label for="f-phone">Phone number <i>*</i><small>I'll send you a text to say hi.</small></label>
+          <label for="f-phone">Phone number <i>*</i></label>
           <input id="f-phone" name="phone" type="tel" required autocomplete="tel">
+          <small class="hint">I'll send you a text to say hi.</small>
         </div>
       </div>
       <div class="field">
@@ -171,8 +173,9 @@
       </div>
       <div class="field-row">
         <div class="field">
-          <label for="f-budget">What's your budget? <i>*</i><small>All packages are listed on the <a href="/pricing">pricing page</a>.</small></label>
+          <label for="f-budget">What's your budget? <i>*</i></label>
           <input id="f-budget" name="budget" type="text" required>
+          <small class="hint">All packages are listed on the <a href="/pricing">pricing page</a>.</small>
         </div>
         <div class="field">
           <label for="f-found">How did you find me?</label>
@@ -194,8 +197,9 @@
 
     <div class="step" data-step="3" data-title="Tell me a little about your story." data-sub="This is my favorite part.">
       <div class="field">
-        <label for="f-about">Your story <i>*</i><small>What are you most looking forward to? What matters most to you when you think about having these memories documented? I'd love to hear anything you'd like to share.</small></label>
+        <label for="f-about">Your story <i>*</i></label>
         <textarea id="f-about" name="about" rows="7" required placeholder="Write as much or as little as you'd like..."></textarea>
+          <small class="hint">What are you most looking forward to? What matters most to you when you think about having these memories documented? I'd love to hear anything you'd like to share.</small>
       </div>
       <div class="field">
         <label for="f-more">Is there anything else you'd like me to know?</label>
