@@ -150,26 +150,22 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* Paper texture sections */
-.paper {
-  background-color: var(--paper);
-  background-image: var(--paper-img);
-  background-size: cover;
-  background-position: center;
-}
+/* Soft bands: flat sand, no texture */
+.paper { background-color: #f1e9dc; }
 
 /* Sections */
 .section { max-width: var(--wrap); margin: 0 auto; padding: 3rem 16px; }
 .paper.section { max-width: none; padding-left: 16px; padding-right: 16px; }
 .paper.section > * { max-width: 900px; margin-left: auto; margin-right: auto; }
-.banner { padding: 2.5rem 16px; text-align: center; }
+.banner { padding: 3.2rem 16px; text-align: center; }
 .banner > * { max-width: 900px; margin-left: auto; margin-right: auto; }
 
 .caps-title {
-  font: 600 clamp(1.6rem, 3.8vw, 2.5rem)/1.25 var(--display-sc); font-variant: small-caps; letter-spacing: .04em;
-  color: var(--brown); text-align: center; margin: 0;
+  font: 500 clamp(1.8rem, 3.8vw, 2.7rem)/1.2 var(--display);
+  color: var(--brown); text-align: center; margin: 0; text-wrap: balance;
 }
-.caps-title.small { font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
-.caps-sub { font: 600 clamp(1.05rem, 2.2vw, 1.3rem)/1.6 var(--display-sc); font-variant: small-caps; letter-spacing: .04em; color: var(--brown); text-align: center; margin-top: .6rem; }
+.caps-title.small { font-size: clamp(1.4rem, 2.8vw, 1.9rem); }
+.caps-sub { font: 500 .78rem/1.8 var(--serif); letter-spacing: .2em; text-transform: uppercase; text-wrap: balance; color: var(--brown); text-align: center; margin-top: .6rem; }
 .fell-title {
   font: italic 500 clamp(1.7rem, 4vw, 2.4rem)/1.25 var(--fell);
   color: var(--brown); text-align: center; margin-bottom: 1rem;
@@ -183,12 +179,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   font: italic 500 clamp(2rem, 5vw, 2.8rem)/1.1 var(--script); color: var(--brown); text-align: center; margin-bottom: .6rem;
 }
 .script-gold {
-  font: italic 500 clamp(1.7rem, 4vw, 2.5rem)/1.2 var(--script); color: var(--gold); text-align: center; margin-top: .8rem;
+  font: italic 500 clamp(1.5rem, 3.2vw, 2rem)/1.25 var(--script); color: var(--gold); text-align: center; margin-top: .8rem; text-wrap: balance;
 }
 .banner > *, .paper.section > * { margin-left: auto; margin-right: auto; }
 .lede, .story p { text-align: center; font-style: italic; color: #333; }
 .story { padding-top: 2.75rem; padding-bottom: 2.25rem; }
-.pull-quote { font: italic 700 clamp(1.05rem, 2.4vw, 1.25rem)/1.6 var(--serif); color: var(--wine); margin: 0; }
+.pull-quote { font: italic 500 clamp(1.4rem, 3vw, 1.9rem)/1.4 var(--display); color: var(--brown); margin: 0; text-wrap: balance; }
 .pull-quote cite { display: block; font-style: normal; font-weight: 400; margin-top: .4rem; }
 
 /* Hero */
