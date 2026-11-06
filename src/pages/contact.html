@@ -9,7 +9,7 @@
 .begin .lede-text p { margin: 0 0 .9rem; }
 .begin-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
 .process { max-width: 1040px; margin: 0 auto; padding: 0 16px 4rem; }
-.process ol { list-style: none; margin: 0; padding: 2rem 0 0; border-top: 1px solid rgba(121,88,60,.2); display: grid; gap: 1.6rem; }
+.process ol { list-style: none; margin: 0; padding: 2rem 0 0; border-top: 1px solid rgba(90,61,38,.2); display: grid; gap: 1.6rem; }
 @media (min-width: 700px) { .process ol { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1000px) { .process ol { grid-template-columns: repeat(4, 1fr); gap: 2rem; } }
 .process li { min-width: 0; }
@@ -33,21 +33,21 @@
 .field .inline-hint { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--muted); margin-left: .35rem; }
 .field label i { font-style: normal; color: var(--gold); }
 .field input, .field select, .field textarea {
-  width: 100%; padding: .8rem .95rem; border: 1px solid rgba(121,88,60,.28); border-radius: 10px;
+  width: 100%; padding: .8rem .95rem; border: 1px solid rgba(90,61,38,.28); border-radius: 10px;
   background: #fcfaf6; color: var(--ink); font: 400 1rem/1.4 var(--serif);
   transition: border-color .2s, box-shadow .2s;
 }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,154,85,.2); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,128,31,.2); }
 .field .is-invalid { border-color: #b23b3b; }
 .choices { display: flex; flex-wrap: wrap; gap: .6rem; }
 .choices label { position: relative; }
 .choices input { position: absolute; opacity: 0; width: 0; height: 0; }
 .choices span {
-  display: inline-block; padding: .55rem 1.1rem; border: 1px solid rgba(121,88,60,.28); border-radius: 999px;
+  display: inline-block; padding: .55rem 1.1rem; border: 1px solid rgba(90,61,38,.28); border-radius: 999px;
   font: 400 .95rem/1.2 var(--serif); color: var(--cocoa); cursor: pointer; transition: all .2s; background: #fcfaf6;
 }
 .choices input:checked + span { background: var(--cocoa); border-color: var(--cocoa); color: var(--white); }
-.choices input:focus-visible + span { box-shadow: 0 0 0 3px rgba(197,154,85,.35); }
+.choices input:focus-visible + span { box-shadow: 0 0 0 3px rgba(176,128,31,.35); }
 .choices.is-invalid span { border-color: #b23b3b; }
 .step-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: .4rem; }
 .btn-text { background: none; border: 0; padding: .6em 0; color: var(--muted); font: 500 .78rem/1.2 var(--serif); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
