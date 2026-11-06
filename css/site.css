@@ -352,6 +352,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 .review-grid { columns: 1; column-gap: 28px; }
 @media (min-width: 960px) { .review-grid { columns: 2; } }
 .review { break-inside: avoid; margin: 0 0 28px; background: #faf7f1; border-radius: var(--radius); overflow: hidden; }
+/* Reviews respond to the pointer: lift, soft shadow, mustard edge */
+.review { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; border: 1px solid transparent; }
+.review img { transition: transform .5s ease; }
+@media (hover: hover) {
+  .review:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(90,61,38,.16); border-color: var(--mustard); }
+  .review:hover img { transform: scale(1.02); }
+}
 .review blockquote { margin: 0; padding: 1.4rem 1.5rem .4rem; font-size: .98rem; line-height: 1.75; }
 .review figcaption { padding: 0 1.5rem 1.4rem; font: 400 .95rem var(--display-sc); font-variant: small-caps; color: var(--brown); letter-spacing: .08em; }
 .review figcaption::before { content: "~ "; }
