@@ -31,6 +31,7 @@ IMG_OUT = ROOT / "img"
 SITE = "https://www.alicetranphotography.com"
 
 WIDTHS = [640, 1280, 1920]
+TRIM_TOP = {"reviews_010": 16}  # pixels to cut from the top of a source image
 QUALITY = 78
 
 _hash_to_name = {}
@@ -55,6 +56,8 @@ def _write_webp(name, max_w=None):
     name = _canonical_name(name)
     src = _source(name)
     im = Image.open(src)
+    if name in TRIM_TOP:  # screenshots captured with a sliver of page chrome above them
+        im = im.crop((0, TRIM_TOP[name], im.width, im.height))
     animated = getattr(im, "n_frames", 1) > 1
     widths = [w for w in WIDTHS if w < im.width] + [min(im.width, WIDTHS[-1])]
     if max_w:
