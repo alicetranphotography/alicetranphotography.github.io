@@ -39,7 +39,7 @@ body {
   overflow-x: hidden;
 }
 img { display: block; max-width: 100%; height: auto; }
-a { color: var(--brown); }
+a { color: var(--brown); text-decoration: none; }
 a:hover { color: var(--gold); }
 h1, h2, h3 { margin: 0; font-weight: 400; line-height: 1.25; }
 p { margin: 0 0 1em; }
