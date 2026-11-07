@@ -236,6 +236,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 .slideshow-pair .slide-btn.prev { left: 12px; }
 .slideshow-pair .slide-btn.next { right: 12px; }
 @media (min-width: 960px) { .slideshow-pair { grid-template-columns: 1fr 1fr; } }
+/* a wall of small slideshows (boudoir page): 2 across on phones, 4 across on desktop */
+.slideshow-grid { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.slideshow-grid .slideshow { margin: 0; padding: 0; }
+.slideshow-grid .slide-btn { width: 32px; height: 32px; font-size: 1.3rem; }
+.slideshow-grid .slide-btn.prev { left: 8px; }
+.slideshow-grid .slide-btn.next { right: 8px; }
+@media (min-width: 960px) { .slideshow-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 
 /* Photo grids: masonry keeps every photo's real shape */
 .masonry { columns: 2 160px; column-gap: 12px; }
