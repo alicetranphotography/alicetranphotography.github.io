@@ -121,6 +121,70 @@ def render_bg(arg):
     return sizes_list[-1][0]
 
 
+BUSINESS = {
+    "@type": "ProfessionalService",
+    "@id": SITE + "/#business",
+    "name": "Alice Tran Photography",
+    "url": SITE + "/",
+    "image": SITE + "/img/home_003-1280.webp",
+    "description": "Wedding, engagement, family, boudoir and portrait photography and wedding films based in Washington DC and Los Angeles, serving clients worldwide.",
+    "email": "alicetranphotography@gmail.com",
+    "founder": {"@type": "Person", "name": "Alice Tran"},
+    "address": {"@type": "PostalAddress", "addressLocality": "Washington", "addressRegion": "DC", "addressCountry": "US"},
+    "areaServed": ["Washington DC", "Maryland", "Virginia", "Los Angeles", "California"],
+    "priceRange": "$$$",
+    "sameAs": [
+        "https://www.instagram.com/alicetranphotography",
+        "https://www.instagram.com/alicetranboudoir/",
+        "https://www.facebook.com/alicetranphotography",
+        "https://www.youtube.com/@Alicetranphotography",
+    ],
+}
+SECTIONS = {"pricing": "Pricing", "portfolio": "Portfolio"}
+
+
+def _text(fragment):
+    """Visible text of an HTML fragment, for schema fields."""
+    s = re.sub(r"<br\s*/?>", " ", fragment)
+    s = re.sub(r"<[^>]+>", "", s)
+    return re.sub(r"\s+", " ", html.unescape(s)).strip()
+
+
+def schema(rel, meta, body, og_image):
+    """JSON-LD for the page: the business on every page, breadcrumbs on inner pages, FAQ on the FAQ page."""
+    if rel == "404":
+        return ""
+    graph = [BUSINESS]
+    if rel != "index":
+        h1 = re.search(r"<h1[^>]*>(.*?)</h1>", body, re.S)
+        crumbs = [("Home", "/")]
+        parts = rel.split("/")
+        if len(parts) > 1:
+            crumbs.append((SECTIONS[parts[0]], "/" + parts[0]))
+        crumbs.append((_text(h1.group(1)) if h1 else meta["title"].split("|")[0].strip(), meta["canonical"]))
+        graph.append({
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + u}
+                for i, (n, u) in enumerate(crumbs)],
+        })
+        graph.append({"@type": "WebPage", "@id": SITE + meta["canonical"], "url": SITE + meta["canonical"],
+                      "name": meta["title"], "description": meta["description"],
+                      "primaryImageOfPage": og_image, "isPartOf": {"@id": SITE + "/#business"}})
+    faqs = re.findall(r'<div class="faq-item">\s*<h2>(.*?)</h2>(.*?)</div>', body, re.S)
+    if faqs:
+        graph.append({
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question", "name": _text(q),
+                "acceptedAnswer": {"@type": "Answer", "text": " ".join(
+                    _text(p) for p in re.findall(r"<(?:p|li)[^>]*>(.*?)</(?:p|li)>", a, re.S))},
+            } for q, a in faqs],
+        })
+    data = {"@context": "https://schema.org", "@graph": graph}
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+
+
 def build(only=None):
     IMG_OUT.mkdir(exist_ok=True)
     favicon = IMG_OUT / "favicon.png"
@@ -143,13 +207,19 @@ def build(only=None):
         body = re.sub(r"\[\[img (.*?)\]\]", lambda m: render_img(m.group(1)), body, flags=re.S)
         body = re.sub(r"\[\[bg (.*?)\]\]", lambda m: render_bg(m.group(1)), body)
         canonical = SITE + meta["canonical"]
-        og_image = SITE + render_bg(f'src="{meta["og_image"]}" max="1280"')
+        og_sizes, ow, oh = _write_webp(meta["og_image"], 1280)
+        og_image = SITE + og_sizes[-1][0]
+        og_w = og_sizes[-1][1]
+        og_h = round(oh * og_w / ow)
         doc = layout
         for k, v in {
             "title": html.escape(meta["title"]),
             "description": html.escape(meta["description"]),
             "canonical": canonical,
             "og_image": og_image,
+            "og_w": str(og_w),
+            "og_h": str(og_h),
+            "schema": schema(rel, meta, body, og_image),
             "head_extra": meta.get("head_extra", ""),
             "body": body,
             "paper": render_bg('src="home_044" max="1280"'),

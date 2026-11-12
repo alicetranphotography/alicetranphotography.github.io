@@ -206,6 +206,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .hero-tagline span { display: block; font-size: .7em; letter-spacing: .14em; margin-top: .2rem; }
 .hero-page::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(60,35,10,.04), rgba(60,35,10,.3)); }
+.hero-sub {
+  margin: .8rem 0 0; color: var(--white);
+  font: 400 clamp(1rem, 2.4vw, 1.3rem)/1.4 var(--display-sc); letter-spacing: .12em;
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+}
 .hero-title {
   font: 500 clamp(2.6rem, 7vw, 4.8rem)/1.05 var(--display); color: var(--white);
   text-shadow: 0 2px 18px rgba(0,0,0,.45);
