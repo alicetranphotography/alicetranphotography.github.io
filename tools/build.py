@@ -108,8 +108,11 @@ def render_grid(arg):
     cls = a.get("class", "masonry")
     sizes = a.get("sizes", "(min-width: 960px) 32vw, (min-width: 600px) 48vw, 100vw")
     items = []
-    for n in range(int(a["from"]), int(a["to"]) + 1):
-        name = f'{a["page"]}_{n:03d}'
+    if "names" in a:  # hand-picked photos, possibly from several pages
+        names = [n.strip() for n in a["names"].split(",") if n.strip()]
+    else:
+        names = [f'{a["page"]}_{n:03d}' for n in range(int(a["from"]), int(a["to"]) + 1)]
+    for name in names:
         img = render_img('src="%s" alt="%s" sizes="%s"' % (name, a.get("alt", ""), sizes))
         _, w0, h0 = _write_webp(name)
         shape = "wide" if w0 > h0 * 1.15 else "tall"
