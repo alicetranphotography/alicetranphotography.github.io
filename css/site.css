@@ -526,7 +526,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .reviews-wall .review-text::before { content: none; }
 .reviews-wall .review:hover .review-text, .reviews-wall .review.is-open .review-text { pointer-events: auto; }
 .reviews-wall .review-text b { display: block; font: 400 1rem var(--display-sc); font-variant: small-caps; letter-spacing: .08em; color: var(--mustard-dk); margin-bottom: .4rem; }
-.reviews-wall .review-text b::before { content: "°5°5°5°5°5  "; color: var(--gold); letter-spacing: .05em; }
+.reviews-wall .review-text b::before { content: "★★★★★  "; color: var(--gold); letter-spacing: .05em; }
 .reviews-wall .review:hover .review-text, .reviews-wall .review.is-open .review-text, .reviews-wall .review:focus-within .review-text { opacity: 1; }
 .reviews-wall .review-hint { position: absolute; right: .9rem; bottom: .9rem; font: 500 .62rem/1 var(--serif); letter-spacing: .18em; text-transform: uppercase; color: var(--white); background: rgba(90,61,38,.75); padding: .45em .8em; border-radius: 999px; pointer-events: none; transition: opacity .3s; }
 .reviews-wall .review:hover .review-hint, .reviews-wall .review.is-open .review-hint { opacity: 0; }
