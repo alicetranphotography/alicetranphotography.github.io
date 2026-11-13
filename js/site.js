@@ -156,3 +156,19 @@
   openHash();
   window.addEventListener('hashchange', openHash);
 })();
+
+// Reviews wall: build a readable text overlay from each screenshot's alt text
+(function () {
+  var figs = document.querySelectorAll('.reviews-wall .review');
+  if (!figs.length) return;
+  figs.forEach(function (f) {
+    var img = f.querySelector('img'); if (!img || !img.alt) return;
+    var m = img.alt.match(/^Google review from (.+?), 5 stars:\s*(.*)$/s);
+    var name = m ? m[1] : 'Client', text = m ? m[2] : img.alt;
+    var cap = document.createElement('figcaption'); cap.className = 'review-text';
+    var b = document.createElement('b'); b.textContent = name; cap.appendChild(b); cap.appendChild(document.createTextNode(text));
+    var hint = document.createElement('span'); hint.className = 'review-hint'; hint.textContent = 'Tap to read';
+    f.appendChild(cap); f.appendChild(hint); f.setAttribute('tabindex', '0');
+    f.addEventListener('click', function () { var open = f.classList.toggle('is-open'); figs.forEach(function (o) { if (o !== f) o.classList.remove('is-open'); }); });
+  });
+})();

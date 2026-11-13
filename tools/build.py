@@ -51,9 +51,28 @@ def _canonical_name(name):
     return _hash_to_name.setdefault(digest, name)
 
 
-def _write_webp(name, max_w=None):
+_stem_for = {}
+
+
+def _slug(text, limit=60):
+    text = re.sub(r"\s*(?:by )?Alice Tran Photography\s*", " ", text, flags=re.I)
+    text = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+    if len(text) > limit:
+        text = text[:limit].rsplit("-", 1)[0]
+    return text or "alice-tran-photography"
+
+
+def _stem(name, alt):
+    """Descriptive output name: the photo's alt text as a slug plus a short id, fixed on first use."""
+    if name not in _stem_for:
+        _stem_for[name] = f"{_slug(alt)}-{hashlib.md5(name.encode()).hexdigest()[:6]}" if alt else name
+    return _stem_for[name]
+
+
+def _write_webp(name, max_w=None, alt=None):
     """Return [(url, width)] for every size written for this photo."""
     name = _canonical_name(name)
+    stem = _stem(name, alt)
     src = _source(name)
     im = Image.open(src)
     if name in TRIM_TOP:  # screenshots captured with a sliver of page chrome above them
@@ -66,7 +85,10 @@ def _write_webp(name, max_w=None):
         widths = [min(im.width, 960)]
     out = []
     for w in sorted(set(widths)):
-        dest = IMG_OUT / f"{name}-{w}.webp"
+        dest = IMG_OUT / f"{stem}-{w}.webp"
+        legacy = IMG_OUT / f"{name}-{w}.webp"
+        if not dest.exists() and legacy.exists():
+            legacy.rename(dest)  # file already encoded under the old name
         if not dest.exists():
             h = round(im.height * w / im.width)
             if animated:
@@ -91,7 +113,7 @@ def _attrs(s):
 def render_img(arg):
     a, flags = _attrs(arg)
     max_w = int(a["max"]) if "max" in a else None
-    sizes_list, w0, h0 = _write_webp(a["src"], max_w)
+    sizes_list, w0, h0 = _write_webp(a["src"], max_w, a.get("alt"))
     largest = sizes_list[-1]
     h = round(h0 * largest[1] / w0)
     srcset = ", ".join(f"{u} {w}w" for u, w in sizes_list)
@@ -114,7 +136,7 @@ def render_grid(arg):
         names = [f'{a["page"]}_{n:03d}' for n in range(int(a["from"]), int(a["to"]) + 1)]
     for name in names:
         img = render_img('src="%s" alt="%s" sizes="%s"' % (name, a.get("alt", ""), sizes))
-        _, w0, h0 = _write_webp(name)
+        _, w0, h0 = _write_webp(name, None, a.get("alt"))
         shape = "wide" if w0 > h0 * 1.15 else "tall"
         items.append(f'  <li class="{shape}">{img}</li>')
     # Mosaic mode follows the majority shape; the odd ones out span two cells
@@ -122,6 +144,15 @@ def render_grid(arg):
     wide = sum('class="wide"' in i for i in items)
     cls += " mode-wide" if wide * 2 > len(items) else " mode-tall"
     return f'<ul class="{cls}">\n' + "\n".join(items) + "\n</ul>"
+
+
+BOOK_NOTE = ('<p class="book-note">Replies within 24 to 48 hours &middot; '
+             '<a href="https://www.instagram.com/alicetranphotography" target="_blank" rel="noopener">@alicetranphotography</a></p>')
+
+
+def add_book_notes(html_body):
+    """Every Book Now button gets a small reply-time note with Alice's Instagram handle."""
+    return re.sub(r'(<a class="btn(?: btn-light)?" href="/contact">Book Now</a>)', r'' + BOOK_NOTE, html_body)
 
 
 def render_bg(arg):
@@ -135,7 +166,7 @@ BUSINESS = {
     "@id": SITE + "/#business",
     "name": "Alice Tran Photography",
     "url": SITE + "/",
-    "image": SITE + "/img/home_003-1280.webp",
+    "image": None,  # filled in by schema()
     "description": "Wedding, engagement, family, boudoir and portrait photography and wedding films based in Washington DC, serving Northern Virginia, Maryland and the DMV, with destination weddings worldwide.",
     "email": "alicetranphotography@gmail.com",
     "founder": {"@type": "Person", "name": "Alice Tran"},
@@ -149,7 +180,7 @@ BUSINESS = {
         "https://www.youtube.com/@Alicetranphotography",
     ],
 }
-SECTIONS = {"pricing": "Pricing", "portfolio": "Portfolio"}
+SECTIONS = {"pricing": "Pricing", "portfolio": "Portfolio", "locations": "Areas served"}
 
 
 def _text(fragment):
@@ -160,6 +191,8 @@ def _text(fragment):
 
 
 def schema(rel, meta, body, og_image):
+    if not BUSINESS["image"]:
+        BUSINESS["image"] = SITE + _write_webp("home_003", 1280, "Washington DC wedding photographer Alice Tran")[0][-1][0]
     """JSON-LD for the page: the business on every page, breadcrumbs on inner pages, FAQ on the FAQ page."""
     if rel == "404":
         return ""
@@ -169,7 +202,7 @@ def schema(rel, meta, body, og_image):
         crumbs = [("Home", "/")]
         parts = rel.split("/")
         if len(parts) > 1:
-            crumbs.append((SECTIONS[parts[0]], "/" + parts[0]))
+            crumbs.append((SECTIONS[parts[0]], "/" + parts[0] if parts[0] != "locations" else "/"))
         crumbs.append((_text(h1.group(1)) if h1 else meta["title"].split("|")[0].strip(), meta["canonical"]))
         graph.append({
             "@type": "BreadcrumbList",
@@ -215,8 +248,9 @@ def build(only=None):
         body = re.sub(r"\[\[grid (.*?)\]\]", lambda m: render_grid(m.group(1)), body)
         body = re.sub(r"\[\[img (.*?)\]\]", lambda m: render_img(m.group(1)), body, flags=re.S)
         body = re.sub(r"\[\[bg (.*?)\]\]", lambda m: render_bg(m.group(1)), body)
+        body = add_book_notes(body)
         canonical = SITE + meta["canonical"]
-        og_sizes, ow, oh = _write_webp(meta["og_image"], 1280)
+        og_sizes, ow, oh = _write_webp(meta["og_image"], 1280, meta["title"])
         og_image = SITE + og_sizes[-1][0]
         og_w = og_sizes[-1][1]
         og_h = round(oh * og_w / ow)
