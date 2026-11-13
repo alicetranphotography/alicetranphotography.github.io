@@ -1,4 +1,4 @@
-<!-- {"title": "Contact Alice Tran Photography | Washington DC & LA", "description": "Tell me a little about what you're dreaming up. Share your date, your place and the people who matter most, and I'll be in touch within 24 to 48 hours.", "canonical": "/contact", "og_image": "contact_003"} -->
+<!-- {"title": "Contact Alice Tran Photography | Washington DC & NOVA", "description": "Tell me a little about what you're dreaming up. Share your date, your place and the people who matter most, and I'll be in touch within 24 to 48 hours.", "canonical": "/contact", "og_image": "contact_003"} -->
 <style>
 /* Contact page: editorial introduction, slim process row, three-step inquiry form */
 .begin { max-width: 1040px; margin: 0 auto; padding: 4rem 16px 3rem; display: grid; gap: 2.5rem; align-items: center; }
@@ -27,7 +27,6 @@
 .step.is-active { display: grid; }
 .field { display: flex; flex-direction: column; gap: .4rem; min-width: 0; }
 .field-row { display: grid; gap: 1.4rem; }
-@media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
 .field label { font: 500 .78rem/1.3 var(--serif); letter-spacing: .14em; text-transform: uppercase; color: var(--cocoa); }
 .field .hint { display: block; font-size: .85rem; color: var(--muted); margin-top: -.1rem; }
 .field .inline-hint { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--muted); margin-left: .35rem; }
@@ -39,16 +38,6 @@
 }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,128,31,.2); }
 .field .is-invalid { border-color: #b23b3b; }
-.choices { display: flex; flex-wrap: wrap; gap: .6rem; }
-.choices label { position: relative; }
-.choices input { position: absolute; opacity: 0; width: 0; height: 0; }
-.choices span {
-  display: inline-block; padding: .55rem 1.1rem; border: 1px solid rgba(90,61,38,.28); border-radius: 999px;
-  font: 400 .95rem/1.2 var(--serif); color: var(--cocoa); cursor: pointer; transition: all .2s; background: #fcfaf6;
-}
-.choices input:checked + span { background: var(--cocoa); border-color: var(--cocoa); color: var(--white); }
-.choices input:focus-visible + span { box-shadow: 0 0 0 3px rgba(176,128,31,.35); }
-.choices.is-invalid span { border-color: #b23b3b; }
 .step-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: .4rem; }
 .btn-text { background: none; border: 0; padding: .6em 0; color: var(--muted); font: 500 .78rem/1.2 var(--serif); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
 .btn-text:hover { color: var(--cocoa); }
@@ -123,19 +112,20 @@
         </div>
       </div>
       <div class="field">
-        <label>What type of shoot are you interested in? <i>*</i></label>
-        <div class="choices" id="f-shoot">
-          <label><input type="radio" name="shoot_type" value="Weddings" required><span>Weddings</span></label>
-          <label><input type="radio" name="shoot_type" value="Elopement"><span>Elopement</span></label>
-          <label><input type="radio" name="shoot_type" value="Engagement"><span>Engagement</span></label>
-          <label><input type="radio" name="shoot_type" value="Proposal"><span>Proposal</span></label>
-          <label><input type="radio" name="shoot_type" value="Family"><span>Family</span></label>
-          <label><input type="radio" name="shoot_type" value="Maternity"><span>Maternity</span></label>
-          <label><input type="radio" name="shoot_type" value="Graduate"><span>Graduate</span></label>
-          <label><input type="radio" name="shoot_type" value="Headshot"><span>Headshot</span></label>
-          <label><input type="radio" name="shoot_type" value="Boudoir"><span>Boudoir</span></label>
-          <label><input type="radio" name="shoot_type" value="Something else"><span>Something else</span></label>
-        </div>
+        <label for="f-shoot">What type of shoot are you interested in? <i>*</i></label>
+        <select id="f-shoot" name="shoot_type" required>
+          <option value="" selected>Choose one</option>
+          <option>Wedding</option>
+          <option>Elopement</option>
+          <option>Engagement</option>
+          <option>Proposal</option>
+          <option>Family</option>
+          <option>Maternity</option>
+          <option>Graduate</option>
+          <option>Headshot</option>
+          <option>Boudoir</option>
+          <option>Something else</option>
+        </select>
       </div>
       <div class="field-row">
         <div class="field">
@@ -154,9 +144,9 @@
           <small class="hint">All packages are listed on the <a href="/pricing">pricing page</a>.</small>
         </div>
         <div class="field">
-          <label for="f-found">How did you find me?</label>
-          <select id="f-found" name="how_found">
-            <option value="" selected>Choose one (optional)</option>
+          <label for="f-found">How did you find me? <i>*</i></label>
+          <select id="f-found" name="how_found" required>
+            <option value="" selected>Choose one</option>
             <option>Google Search</option>
             <option>Instagram</option>
             <option>Facebook</option>

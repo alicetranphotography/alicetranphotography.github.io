@@ -184,7 +184,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .banner > *, .paper.section > * { margin-left: auto; margin-right: auto; }
 .lede, .story p { text-align: center; font-style: italic; color: #333; }
 .story { padding-top: 2.75rem; padding-bottom: 2.25rem; }
-.pull-quote { font: italic 500 clamp(1.4rem, 3vw, 1.9rem)/1.4 var(--display); color: var(--brown); margin: 0; text-wrap: balance; }
+.pull-quote { font: italic 500 clamp(1.4rem, 3vw, 1.9rem)/1.4 var(--display); color: var(--brown); margin: 0 auto; text-wrap: balance; }
 .pull-quote cite { display: block; font-style: normal; font-weight: 400; margin-top: .4rem; }
 
 /* Hero */
@@ -249,13 +249,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 .slideshow-grid .slide-btn.next { right: 8px; }
 @media (min-width: 960px) { .slideshow-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 
-/* Photo grids: masonry keeps every photo's real shape */
-.masonry { columns: 2 160px; column-gap: 12px; }
-.masonry li { break-inside: avoid; margin-bottom: 12px; }
+/* Photo mosaic: cells follow the majority shape, the odd ones out span two cells, rows stay aligned */
+.masonry { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; gap: 12px; }
+.masonry li { overflow: hidden; background: #eee; }
+.masonry img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mode-tall li { aspect-ratio: 2 / 3; }
+.mode-tall li.wide { grid-column: span 2; aspect-ratio: 4 / 3; }
+.mode-wide li { aspect-ratio: 3 / 2; }
+.mode-wide li.tall { grid-row: span 2; aspect-ratio: auto; }
 @media (min-width: 960px) {
-  .masonry { columns: 3; column-gap: 16px; }
-  .masonry li { margin-bottom: 16px; }
-  .masonry-tall { columns: 4; }
+  .masonry { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .masonry-tall { grid-template-columns: repeat(4, 1fr); }
 }
 .wide-photo { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
 .wide-photo img { width: 100%; }

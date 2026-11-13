@@ -111,7 +111,13 @@ def render_grid(arg):
     for n in range(int(a["from"]), int(a["to"]) + 1):
         name = f'{a["page"]}_{n:03d}'
         img = render_img('src="%s" alt="%s" sizes="%s"' % (name, a.get("alt", ""), sizes))
-        items.append(f"  <li>{img}</li>")
+        _, w0, h0 = _write_webp(name)
+        shape = "wide" if w0 > h0 * 1.15 else "tall"
+        items.append(f'  <li class="{shape}">{img}</li>')
+    # Mosaic mode follows the majority shape; the odd ones out span two cells
+    # (a tall photo spans two rows among wide ones, a wide photo spans two columns among tall ones).
+    wide = sum('class="wide"' in i for i in items)
+    cls += " mode-wide" if wide * 2 > len(items) else " mode-tall"
     return f'<ul class="{cls}">\n' + "\n".join(items) + "\n</ul>"
 
 
@@ -127,11 +133,11 @@ BUSINESS = {
     "name": "Alice Tran Photography",
     "url": SITE + "/",
     "image": SITE + "/img/home_003-1280.webp",
-    "description": "Wedding, engagement, family, boudoir and portrait photography and wedding films based in Washington DC and Los Angeles, serving clients worldwide.",
+    "description": "Wedding, engagement, family, boudoir and portrait photography and wedding films based in Washington DC, serving Northern Virginia, Maryland and the DMV, with destination weddings worldwide.",
     "email": "alicetranphotography@gmail.com",
     "founder": {"@type": "Person", "name": "Alice Tran"},
     "address": {"@type": "PostalAddress", "addressLocality": "Washington", "addressRegion": "DC", "addressCountry": "US"},
-    "areaServed": ["Washington DC", "Maryland", "Virginia", "Los Angeles", "California"],
+    "areaServed": ["Washington DC", "Northern Virginia", "Virginia", "Maryland", "Arlington VA", "Alexandria VA", "Fairfax VA", "Bethesda MD"],
     "priceRange": "$$$",
     "sameAs": [
         "https://www.instagram.com/alicetranphotography",
