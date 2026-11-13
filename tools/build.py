@@ -180,7 +180,7 @@ def schema(rel, meta, body, og_image):
         graph.append({"@type": "WebPage", "@id": SITE + meta["canonical"], "url": SITE + meta["canonical"],
                       "name": meta["title"], "description": meta["description"],
                       "primaryImageOfPage": og_image, "isPartOf": {"@id": SITE + "/#business"}})
-    faqs = re.findall(r'<div class="faq-item">\s*<h2>(.*?)</h2>(.*?)</div>', body, re.S)
+    faqs = re.findall(r'<(?:div|details) class="faq-item"[^>]*>\s*(?:<summary[^>]*>.*?)?<h2>(.*?)</h2>(.*?)</(?:div|details)>', body, re.S)
     if faqs:
         graph.append({
             "@type": "FAQPage",

@@ -1,13 +1,47 @@
 <!-- {"title": "FAQ | Alice Tran Photography, Washington DC & Virginia", "description": "Frequently asked questions: LGBTQ+ friendly, real client galleries, how far in advance to book, insurance, backing up your photos, travel and how payment works.", "canonical": "/faq", "og_image": "faq_003"} -->
 <style>
-.faq-list { max-width: 860px; }
-.faq-item { padding: 2rem 0; border-bottom: 1px solid #e8e1d4; }
-.faq-item:last-child { border-bottom: 0; }
-.faq-item h2 { font: 700 clamp(1.15rem, 2.6vw, 1.45rem)/1.4 var(--display-sc); color: var(--brown); margin-bottom: .9rem; }
-.faq-item ul { margin: 0 0 1em; }
-.faq-item li { position: relative; padding: .35rem 0 .35rem 1.5rem; }
-.faq-item li::before { content: "\2713"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
-.faq-item .masonry { margin-top: 1.5rem; }
+.faq-wrap { max-width: 880px; }
+.faq-intro { text-align: center; margin-bottom: 2rem; }
+.faq-intro .eyebrow { margin-bottom: .4rem; }
+.faq-intro p.lead { max-width: 620px; margin: .6rem auto 0; color: var(--cocoa); }
+.faq-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
+.faq-chips a { display: inline-block; padding: .5em 1.1em; border: 1px solid var(--mustard); border-radius: 999px; font: 500 .74rem/1 var(--serif); letter-spacing: .14em; text-transform: uppercase; color: var(--brown); background: var(--white); transition: background-color .25s, color .25s, transform .25s, box-shadow .25s; }
+.faq-chips a:hover { background: var(--mustard-dk); border-color: var(--mustard-dk); color: var(--white); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(90,56,24,.18); }
+
+.faq-acc { display: grid; gap: 14px; }
+details.faq-item { background: var(--white); border: 1px solid #eadfc8; border-radius: 10px; overflow: hidden; scroll-margin-top: 110px; transition: border-color .3s, box-shadow .3s, transform .3s; }
+details.faq-item:hover { border-color: var(--mustard); box-shadow: 0 10px 28px rgba(90,56,24,.10); }
+details.faq-item[open] { border-color: var(--mustard); box-shadow: 0 14px 34px rgba(90,56,24,.14); }
+details.faq-item summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; padding: 1.15rem 1.25rem; user-select: none; }
+details.faq-item summary::-webkit-details-marker { display: none; }
+details.faq-item summary:focus-visible { outline: 2px solid var(--mustard-dk); outline-offset: -2px; }
+.faq-num { font: 400 .95rem/1 var(--display); color: var(--mustard-dk); letter-spacing: .08em; min-width: 2ch; }
+details.faq-item h2 { font: 700 clamp(1.05rem, 2.2vw, 1.3rem)/1.35 var(--display-sc); color: var(--brown); margin: 0; transition: color .3s; }
+details.faq-item[open] h2, details.faq-item summary:hover h2 { color: var(--mustard-dk); }
+.faq-icon { position: relative; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--mustard); flex: none; transition: background-color .3s, transform .4s cubic-bezier(.2,.7,.2,1); }
+.faq-icon::before, .faq-icon::after { content: ""; position: absolute; left: 50%; top: 50%; background: var(--mustard-dk); transition: background-color .3s; }
+.faq-icon::before { width: 14px; height: 2px; transform: translate(-50%, -50%); }
+.faq-icon::after { width: 2px; height: 14px; transform: translate(-50%, -50%); }
+details.faq-item summary:hover .faq-icon { background: var(--mustard-pale); }
+details.faq-item[open] .faq-icon { background: var(--mustard-dk); transform: rotate(135deg); }
+details.faq-item[open] .faq-icon::before, details.faq-item[open] .faq-icon::after { background: var(--white); }
+.faq-body { padding: 0 1.25rem 1.5rem calc(1.25rem + 2ch + 1rem); color: var(--ink); }
+.faq-body > :first-child { margin-top: 0; }
+.faq-body p { margin: 0 0 .9em; line-height: 1.65; }
+.faq-body p.shout { font: 700 1.25rem/1.3 var(--display-sc); color: var(--mustard-dk); letter-spacing: .04em; }
+.faq-body ul:not(.masonry) { margin: 0 0 1em; padding: 0; list-style: none; }
+.faq-body ul:not(.masonry) li { position: relative; padding: .4rem 0 .4rem 1.6rem; line-height: 1.55; border-bottom: 1px dashed #eee4d3; }
+.faq-body ul:not(.masonry) li:last-child { border-bottom: 0; }
+.faq-body ul:not(.masonry) li::before { content: "\2713"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+.faq-body .masonry { margin-top: 1.2rem; grid-template-columns: repeat(3, 1fr); }
+.faq-body a { color: var(--mustard-dk); border-bottom: 1px solid currentColor; }
+@media (max-width: 600px) { .faq-body { padding-left: 1.25rem; } .faq-num { display: none; } details.faq-item summary { grid-template-columns: 1fr auto; } }
+
+.faq-cta { margin-top: 2.5rem; text-align: center; background: var(--mustard-pale); border-radius: 12px; padding: 2.4rem 1.5rem; }
+.faq-cta h2 { font: 400 clamp(1.5rem, 3.4vw, 2rem)/1.2 var(--display); color: var(--cocoa); margin-bottom: .5rem; }
+.faq-cta p { color: var(--cocoa); margin: 0 auto 1.2rem; max-width: 520px; }
+.faq-cta .btn + .btn { margin-left: .6rem; }
+@media (prefers-reduced-motion: reduce) { .faq-icon, .faq-chips a, details.faq-item { transition: none; } }
 </style>
 [[header]]
 
@@ -15,6 +49,7 @@
   [[img src="faq_003" alt="Couple celebrating as they walk back up the aisle at an outdoor ceremony" sizes="100vw" class="hero-img" eager]]
   <div class="hero-content">
     <h1 class="hero-title">Frequently Asked Questions</h1>
+    <p class="hero-sub">Everything you might want to know before you book</p>
   </div>
 </section>
 
@@ -22,61 +57,103 @@
   <p class="fell-title">"What I like about photographs is that they capture a moment that's gone forever, impossible to reproduce."</p>
 </section>
 
-<section class="section faq-list">
-  <div class="faq-item">
-    <h2>Are you LGBTQ+ friendly?</h2>
-    <p><strong>Heck YESSSSSSSSSS. LOVE IS LOVE.</strong></p>
-    <p>I couldn't care less about your race, gender, religion, cultures... honestly, I won't even judge you if you don't like dogs or chocolate (okay but seriously, who hurt you?). A little overshare but below are pictures of me, my lovely sister, and her wonderful wife (girlfriend at the time) at a Pride Parade in Washington DC back in 2018, and at their wedding day. I have always had their back since day one. Trust me, I've got yours, too.</p>
-    [[grid page="faq" from="10" to="14" alt="Personal photograph shared by Alice Tran" class="masonry"]]
-  </div>
-
-  <div class="faq-item">
-    <h2>Are all your galleries from real clients?</h2>
-    <p>Absolutely. I've never participated in a styled shoot: every photo you see is from real clients, real weddings, and real moments. My couples aren't models; they're the neighbors next door, the college sweethearts, the goofballs in love. Just everyday people with beautiful stories. :)</p>
-  </div>
-
-  <div class="faq-item">
-    <h2>How far in advance should I book you?</h2>
-    <p>As soon as you can I'd say. I have another full time job so I only take in a limited amount of sessions and weddings every month. Booking comes in a first come first serve basis. I would hate to turn away you and your loved ones if I am already booked up for the dates that you want.</p>
-  </div>
-
-  <div class="faq-item">
-    <h2>Are you insured? Do you have liability insurance? Is your business registered?</h2>
-    <p>YES and YES and YES! I can provide proof of insurance to your venues if requested!</p>
-    <p>Also on that note, PLEASE MAKE SURE ALL YOUR VENDORS ARE LICENSED AND INSURED.</p>
-  </div>
-
-  <div class="faq-item">
-    <h2>Do you have more than 1 camera? More than 1 lens? Do your cameras have dual slot memory cards? How do you back up my photos? HOW DO YOU MAKE SURE MY PHOTOS ARE SAFE and WON'T GET LOST?!</h2>
-    <p>These are all VALID questions and I want you to make sure that you ask this to any photographers/videographers that you are considering. Sometimes, there are moments that are gone forever and sometimes there is no RE-DO, and as we all know, when it comes to technology, the question is not if it's going to fail, it's when. This is WHY as a photographer, I always make sure that I do everything in my power to save all the photos as soon as possible and to have more than one back up in place to make sure YOUR MEMORIES are safe and protected.</p>
-    <p>Here is my approach:</p>
-    <ul>
-      <li>I always have 3 cameras with me</li>
-      <li>All my cameras have dual card slots (meaning that each picture/video I take is saved simultaneously to 2 memory cards at the same time so that if one card happens to malfunction, the other card still has all the pictures)</li>
-      <li>Once I get home or even sitting in the car, I back up all the photos to my laptop, my 2 external hard drives, and I also back up to the cloud/ stored online.</li>
-      <li>Furthermore, I do not delete any images from memory cards until the wedding or session is delivered and saved on my website gallery!</li>
+<section class="section faq-wrap">
+  <div class="faq-intro">
+    <p class="eyebrow">Good to know</p>
+    <h2 class="sans-title">Tap a question to open the answer</h2>
+    <p class="lead">The short version: I am insured, I back everything up three ways, I travel, and love is love.</p>
+    <ul class="faq-chips">
+      <li><a href="#faq-lgbtq">LGBTQ+ friendly</a></li>
+      <li><a href="#faq-booking">Booking</a></li>
+      <li><a href="#faq-insured">Insurance</a></li>
+      <li><a href="#faq-backup">Photo safety</a></li>
+      <li><a href="#faq-travel">Travel</a></li>
+      <li><a href="#faq-payment">Payment</a></li>
     </ul>
   </div>
 
-  <div class="faq-item">
-    <h2>Do you travel?</h2>
-    <p>I do travel to wherever you are :) ! Message me for travel pricing. For each portrait session package, there is a complimentary 30 minutes of travel to the location.</p>
-    <p>For Wedding &amp; Elopements, contact me for wedding package travel pricing.</p>
+  <div class="faq-acc">
+    <details class="faq-item" id="faq-lgbtq" open>
+      <summary><span class="faq-num">01</span><h2>Are you LGBTQ+ friendly?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p class="shout">Heck YESSSSSSSSSS. LOVE IS LOVE.</p>
+        <p>I couldn't care less about your race, gender, religion, cultures... honestly, I won't even judge you if you don't like dogs or chocolate (okay but seriously, who hurt you?). A little overshare but below are pictures of me, my lovely sister, and her wonderful wife (girlfriend at the time) at a Pride Parade in Washington DC back in 2018, and at their wedding day. I have always had their back since day one. Trust me, I've got yours, too.</p>
+        [[grid page="faq" from="10" to="12" alt="Personal photograph shared by Alice Tran" class="masonry" sizes="(min-width: 960px) 280px, 32vw"]]
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-real">
+      <summary><span class="faq-num">02</span><h2>Are all your galleries from real clients?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p>Absolutely. I've never participated in a styled shoot: every photo you see is from real clients, real weddings, and real moments. My couples aren't models; they're the neighbors next door, the college sweethearts, the goofballs in love. Just everyday people with beautiful stories. :)</p>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-booking">
+      <summary><span class="faq-num">03</span><h2>How far in advance should I book you?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p>As soon as you can I'd say. I have another full time job so I only take in a limited amount of sessions and weddings every month. Booking comes in a first come first serve basis. I would hate to turn away you and your loved ones if I am already booked up for the dates that you want.</p>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-insured">
+      <summary><span class="faq-num">04</span><h2>Are you insured? Do you have liability insurance? Is your business registered?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p class="shout">YES and YES and YES!</p>
+        <p>I can provide proof of insurance to your venues if requested!</p>
+        <p>Also on that note, PLEASE MAKE SURE ALL YOUR VENDORS ARE LICENSED AND INSURED.</p>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-backup">
+      <summary><span class="faq-num">05</span><h2>Do you have more than 1 camera? More than 1 lens? Do your cameras have dual slot memory cards? How do you back up my photos? HOW DO YOU MAKE SURE MY PHOTOS ARE SAFE and WON'T GET LOST?!</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p>These are all VALID questions and I want you to make sure that you ask this to any photographers/videographers that you are considering. Sometimes, there are moments that are gone forever and sometimes there is no RE-DO, and as we all know, when it comes to technology, the question is not if it's going to fail, it's when. This is WHY as a photographer, I always make sure that I do everything in my power to save all the photos as soon as possible and to have more than one back up in place to make sure YOUR MEMORIES are safe and protected.</p>
+        <p>Here is my approach:</p>
+        <ul>
+          <li>I always have 3 cameras with me</li>
+          <li>All my cameras have dual card slots (meaning that each picture/video I take is saved simultaneously to 2 memory cards at the same time so that if one card happens to malfunction, the other card still has all the pictures)</li>
+          <li>Once I get home or even sitting in the car, I back up all the photos to my laptop, my 2 external hard drives, and I also back up to the cloud/ stored online.</li>
+          <li>Furthermore, I do not delete any images from memory cards until the wedding or session is delivered and saved on my website gallery!</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-travel">
+      <summary><span class="faq-num">06</span><h2>Do you travel?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p>I do travel to wherever you are :) ! Message me for travel pricing. For each portrait session package, there is a complimentary 30 minutes of travel to the location.</p>
+        <p>For Wedding &amp; Elopements, contact me for wedding package travel pricing.</p>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-addons">
+      <summary><span class="faq-num">07</span><h2>Can I add more hours to my session or buy additional photos from my shoot?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p>Yes and Yes. See <a href="/pricing">PRICING</a> page for more details.</p>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-payment">
+      <summary><span class="faq-num">08</span><h2>How does payment work?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p>It is very simple. In order to officially book me for a specific date &amp; time, I need to have a signed contract and a non-refundable &amp; non-transferable retainer of 50% of your total package. This retainer ensures that I turn down other works on that date and reserve your booking date &amp; time with me. The second payment is due 14 days before the shoot date for small sessions (or 30 days for Elopements and Weddings). No final images will be delivered until full payment is made.</p>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-other">
+      <summary><span class="faq-num">09</span><h2>I have other questions that are not listed here?</h2><span class="faq-icon" aria-hidden="true"></span></summary>
+      <div class="faq-body">
+        <p>Contact me at <a href="mailto:alicetranphotography@gmail.com">alicetranphotography@gmail.com</a> and I will get back to you in 24 to 48 hours.</p>
+      </div>
+    </details>
   </div>
 
-  <div class="faq-item">
-    <h2>Can I add more hours to my session or buy additional photos from my shoot?</h2>
-    <p>Yes and Yes. See <a href="/pricing">PRICING</a> page for more details.</p>
-  </div>
-
-  <div class="faq-item">
-    <h2>How does payment work?</h2>
-    <p>It is very simple. In order to officially book me for a specific date &amp; time, I need to have a signed contract and a non-refundable &amp; non-transferable retainer of 50% of your total package. This retainer ensures that I turn down other works on that date and reserve your booking date &amp; time with me. The second payment is due 14 days before the shoot date for small sessions (or 30 days for Elopements and Weddings). No final images will be delivered until full payment is made.</p>
-  </div>
-
-  <div class="faq-item">
-    <h2>I have other questions that are not listed here?</h2>
-    <p>Contact me at <a href="mailto:alicetranphotography@gmail.com">alicetranphotography@gmail.com</a> and I will get back to you in 24 to 48 hours.</p>
+  <div class="faq-cta">
+    <h2>Still have a question?</h2>
+    <p>Send me a note and I will get back to you within 24 to 48 hours.</p>
+    <a class="btn" href="/contact">Send an Inquiry</a>
+    <a class="btn btn-outline" href="mailto:alicetranphotography@gmail.com">Email Alice</a>
   </div>
 </section>
 

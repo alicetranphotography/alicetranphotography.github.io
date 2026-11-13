@@ -110,3 +110,49 @@
     phone.addEventListener('input', function () { phone.classList.toggle('is-invalid', phone.value.trim() !== '' && !phoneOk(phone.value)); });
   }
 })();
+
+// FAQ accordion: smooth open/close, one open at a time
+(function () {
+  var items = document.querySelectorAll('details.faq-item');
+  if (!items.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function finish(body, after) {
+    var done = false;
+    function end() { if (done) return; done = true; body.style.height = body.style.overflow = body.style.transition = ''; body.removeEventListener('transitionend', end); if (after) after(); }
+    body.addEventListener('transitionend', end);
+    setTimeout(end, 450);
+  }
+  function open(d, body) {
+    d.open = true;
+    if (reduce) return;
+    var h = body.scrollHeight;
+    body.style.height = '0px'; body.style.overflow = 'hidden';
+    void body.offsetHeight;
+    body.style.transition = 'height .4s cubic-bezier(.2,.7,.2,1)'; body.style.height = h + 'px';
+    finish(body);
+  }
+  function close(d, body) {
+    if (reduce) { d.open = false; return; }
+    body.style.height = body.scrollHeight + 'px'; body.style.overflow = 'hidden';
+    void body.offsetHeight;
+    body.style.transition = 'height .3s ease'; body.style.height = '0px';
+    finish(body, function () { d.open = false; });
+  }
+  items.forEach(function (d) {
+    var summary = d.querySelector('summary'), body = d.querySelector('.faq-body');
+    if (!summary || !body) return;
+    summary.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (d.open) { close(d, body); return; }
+      items.forEach(function (o) { if (o !== d && o.open) close(o, o.querySelector('.faq-body')); });
+      open(d, body);
+    });
+  });
+  function openHash() {
+    if (!location.hash) return;
+    var t = document.querySelector(location.hash);
+    if (t && t.matches('details.faq-item')) { items.forEach(function (o) { o.open = o === t; }); }
+  }
+  openHash();
+  window.addEventListener('hashchange', openHash);
+})();

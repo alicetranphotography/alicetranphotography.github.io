@@ -349,7 +349,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .service .from { font-size: .9rem; color: var(--muted); margin: 0; }
 .service .from b { color: var(--mustard-dk); font-size: 1.05rem; }
 .service .link { margin-top: auto; padding-top: .6rem; font: 400 .82rem/1.2 var(--display); font-variant: small-caps; letter-spacing: .14em; color: var(--brown); display: inline-flex; align-items: center; gap: .4em; transition: color .3s; }
-.service .link::after { content: "92"; display: inline-block; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .3s; }
+.service .link::after { content: "→"; display: inline-block; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .3s; }
 .service:hover .link { color: var(--mustard-dk); }
 .service:hover .link::after { opacity: 1; transform: translateX(0); }
 @media (prefers-reduced-motion: reduce) { .service, .card-media img, .card-media::after, .service .link::after, .gallery-cards a, .gallery-cards .btn { transition: none; } }
