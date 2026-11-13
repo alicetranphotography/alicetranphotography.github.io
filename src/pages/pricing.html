@@ -1,10 +1,6 @@
 <!-- {"title": "Photography Pricing & Packages | Alice Tran, DC & NOVA", "description": "Full transparency matters: no hidden fees and real client gallery access. View all Alice Tran Photography packages with pricing and full client galleries below.", "canonical": "/pricing", "og_image": "pricing_003"} -->
 <style>
-  .pricing-overview .gallery-cards { max-width: var(--wrap); margin: 0 auto; gap: 36px 24px; }
-  @media (min-width: 960px) { .pricing-overview .gallery-cards { grid-template-columns: repeat(3, 1fr); } }
-  .pricing-overview .gallery-cards h2 {
-    font: 700 clamp(1.3rem, 2.6vw, 1.6rem)/1.25 var(--display-sc); color: var(--brown); margin-bottom: .8rem;
-  }
+  .pricing-overview .services { max-width: var(--wrap); margin: 0 auto; }
 </style>
 [[header]]
 
@@ -23,17 +19,17 @@
 </section>
 
 <section class="section pricing-overview">
-  <ul class="gallery-cards">
-    <li><a class="pcard" href="/pricing/weddings-elopements"><h2>Weddings<br>&amp; Elopements</h2><span class="card-media">[[img src="pricing_010" alt="Bride and groom in front of a modern glass building" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Wedding &amp; Elopement Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/engagements-couples"><h2>Engagements<br>&amp; Proposals</h2><span class="card-media">[[img src="pricing_011" alt="Couple kissing by a creek in autumn" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Engagement &amp; Proposal Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/weddings-films"><h2>Wedding Films<br>&amp; Videos</h2><span class="card-media">[[img src="pricing_012" alt="Wedding party holding white parasols" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Wedding Films Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/tea-ceremonies"><h2>Tea Ceremonies,<br>Paebaek &amp; Events</h2><span class="card-media">[[img src="pricing_013" alt="Couple in traditional Korean wedding attire celebrating at a Paebaek ceremony" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Tea Ceremony Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/family-portraits"><h2>Family<br>&amp; Portraits</h2><span class="card-media">[[img src="pricing_014" alt="Family portrait photograph by Alice Tran Photography" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Portrait Session Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/maternity-newborn"><h2>Maternity<br>&amp; Newborn</h2><span class="card-media">[[img src="portfolio__maternity-newborn_011" alt="Expecting mother seated among pastel flowers in the studio" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Maternity &amp; Newborn Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/headshots-seniors"><h2>Headshots<br>&amp; Seniors</h2><span class="card-media">[[img src="portfolio__headshots-seniors_008" alt="Graduate smiling in a green cap and gown" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Headshot &amp; Senior Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/studio-sessions"><h2>Studio Sessions<br>&amp; Minis</h2><span class="card-media">[[img src="portfolio__families_010" alt="Parents holding their baby in front of a warm studio backdrop" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Studio Session Pricing</span></a></li>
-    <li><a class="pcard" href="/pricing/boudoir-self-love"><h2>Boudoir<br>&amp; Self-Love</h2><span class="card-media">[[img src="pricing_015" alt="Boudoir photograph by Alice Tran Photography" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><span class="btn">View Boudoir Session Pricing</span></a></li>
-  </ul>
+  <div class="services">
+    <a class="service" href="/pricing/weddings-elopements"><span class="card-media">[[img src="pricing_010" alt="Bride and groom in front of a modern glass building" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Weddings &amp; Elopements</h3><p class="from">Starting at <b>$2,000</b></p><span class="link">See wedding packages</span></div></a>
+    <a class="service" href="/pricing/weddings-films"><span class="card-media">[[img src="pricing_012" alt="Wedding party holding white parasols" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Wedding Films</h3><p class="from">Starting at <b>$3,500</b></p><span class="link">See film packages</span></div></a>
+    <a class="service" href="/pricing/engagements-couples"><span class="card-media">[[img src="pricing_011" alt="Couple kissing by a creek in autumn" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Engagements &amp; Couples</h3><p class="from">Starting at <b>$950</b></p><span class="link">See engagement packages</span></div></a>
+    <a class="service" href="/pricing/tea-ceremonies"><span class="card-media">[[img src="pricing_013" alt="Couple in traditional Korean wedding attire at a Paebaek ceremony" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Tea Ceremonies &amp; Paebaek</h3><p class="from">Starting at <b>$2,000</b></p><span class="link">See tea ceremony packages</span></div></a>
+    <a class="service" href="/pricing/family-portraits"><span class="card-media">[[img src="pricing_014" alt="Family portrait photograph by Alice Tran Photography" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Family &amp; Portraits</h3><p class="from">Starting at <b>$500</b></p><span class="link">See portrait packages</span></div></a>
+    <a class="service" href="/pricing/maternity-newborn"><span class="card-media">[[img src="portfolio__maternity-newborn_011" alt="Expecting mother seated among pastel flowers in the studio" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Maternity &amp; Newborn</h3><p class="from">Starting at <b>$500</b></p><span class="link">See maternity packages</span></div></a>
+    <a class="service" href="/pricing/headshots-seniors"><span class="card-media">[[img src="portfolio__headshots-seniors_008" alt="Graduate smiling in a green cap and gown" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Headshots &amp; Seniors</h3><p class="from">Starting at <b>$300</b></p><span class="link">See headshot packages</span></div></a>
+    <a class="service" href="/pricing/studio-sessions"><span class="card-media">[[img src="portfolio__families_010" alt="Parents holding their baby in front of a warm studio backdrop" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Studio Sessions &amp; Minis</h3><p class="from">Starting at <b>$300</b></p><span class="link">See studio packages</span></div></a>
+    <a class="service" href="/pricing/boudoir-self-love"><span class="card-media">[[img src="pricing_015" alt="Boudoir photograph by Alice Tran Photography" sizes="(min-width: 960px) 30vw, (min-width: 600px) 48vw, 100vw"]]</span><div class="service-body"><h3>Boudoir &amp; Self-Love</h3><p class="from">Starting at <b>$950</b></p><span class="link">See boudoir packages</span></div></a>
+  </div>
 </section>
 
 <section class="paper banner">

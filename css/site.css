@@ -409,16 +409,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .gallery-cards img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); transition: opacity .2s; }
 .gallery-cards a:hover img { opacity: .88; }
 .gallery-cards .btn { margin-top: .8rem; }
-/* Pricing hub cards: zoom in a rounded frame, lift, title and button light up */
-.gallery-cards .card-media { border-radius: var(--radius); }
-.gallery-cards .card-media img { border-radius: 0; }
-.gallery-cards .pcard { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
-.gallery-cards .pcard:hover { transform: translateY(-6px); }
-.gallery-cards .pcard:hover img { opacity: 1; }
-.gallery-cards .pcard h2 { transition: color .3s; }
-.gallery-cards .pcard:hover h2 { color: var(--mustard-dk); }
-.gallery-cards .pcard .btn { transition: background-color .3s, color .3s, box-shadow .3s, transform .3s; }
-.gallery-cards .pcard:hover .btn { background: var(--mustard-dk); border-color: var(--mustard-dk); color: var(--white); box-shadow: 0 8px 20px rgba(90,56,24,.22); transform: translateY(-2px); }
 
 /* Videos */
 .videos { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
