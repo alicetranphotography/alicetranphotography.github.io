@@ -146,13 +146,13 @@ def render_grid(arg):
     return f'<ul class="{cls}">\n' + "\n".join(items) + "\n</ul>"
 
 
-BOOK_NOTE = ('<p class="book-note">Replies within 24 to 48 hours &middot; '
+BOOK_NOTE = ('<p class="book-note">Replies within 24 to 48 hours<br>'
              '<a href="https://www.instagram.com/alicetranphotography" target="_blank" rel="noopener">@alicetranphotography</a></p>')
 
 
 def add_book_notes(html_body):
     """Every Book Now button gets a small reply-time note with Alice's Instagram handle."""
-    return re.sub(r'(<a class="btn(?: btn-light)?" href="/contact">Book Now</a>)', r'' + BOOK_NOTE, html_body)
+    return re.sub(r'(<a class="btn(?: btn-light)?" href="/contact">Book Now</a>)', lambda m: m.group(1) + BOOK_NOTE, html_body)
 
 
 def render_bg(arg):
@@ -202,7 +202,7 @@ def schema(rel, meta, body, og_image):
         crumbs = [("Home", "/")]
         parts = rel.split("/")
         if len(parts) > 1:
-            crumbs.append((SECTIONS[parts[0]], "/" + parts[0] if parts[0] != "locations" else "/"))
+            crumbs.append((SECTIONS[parts[0]], {"locations": "/", "portfolio": "/pricing"}.get(parts[0], "/" + parts[0])))
         crumbs.append((_text(h1.group(1)) if h1 else meta["title"].split("|")[0].strip(), meta["canonical"]))
         graph.append({
             "@type": "BreadcrumbList",
