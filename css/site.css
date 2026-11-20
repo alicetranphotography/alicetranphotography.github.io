@@ -344,7 +344,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .service:hover .card-media img, .gallery-cards a:hover .card-media img { transform: scale(1.07); }
 .service:hover .card-media::after, .gallery-cards a:hover .card-media::after { opacity: 1; }
 .service-body { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .35rem; flex: 1; }
-.service h3 { font: 400 1.25rem/1.2 var(--display); color: var(--cocoa); transition: color .3s; }
+.service h3 { font: 700 1.35rem/1.2 var(--display); color: var(--cocoa); transition: color .3s; }
 .service:hover h3 { color: var(--mustard-dk); }
 .service .from { font-size: .9rem; color: var(--muted); margin: 0; }
 .service .from b { color: var(--mustard-dk); font-size: 1.05rem; }
